@@ -172,7 +172,7 @@ ctx => {
 })
 
 // Koa listener
-app.listen(process.env.WEB_PORT, async () => {
+app.listen(3000, async () => {
   try {
 
     // Start error handling
@@ -186,8 +186,8 @@ app.listen(process.env.WEB_PORT, async () => {
 
     // Parse netcat requests and transfer them to WebSockets
     const nc_server = await websocat.create({
-      listen: "tcp-l:0.0.0.0:" + process.env.NC_PORT,
-      host: "ws://127.0.0.1:" + process.env.WEB_PORT,
+      listen: "tcp-l:0.0.0.0:31337",
+      host: "ws://127.0.0.1:3000",
       oneMessage: true,
       noClose: true
     })
