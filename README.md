@@ -30,13 +30,4 @@ shortie-server exposes two APIs:
 
 ## Deployment
 
-### Prerequisites:
-
-  - Redis Server
-  - Docker Runtime
-
-### Running:
-
-Use `docker run` to run the container and setting all env variables found in `.env.example`.
-
-Ports 3000 and 31337 need to be exposed.
+Use the included `docker-compose.yml` file!
