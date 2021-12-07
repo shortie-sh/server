@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: shortie.sh RESTful API
+  description: A very nerdy url shortner
+  
+servers:
+  - url: https://shortie.sh/api/rest
+
+paths:
+  /redirect:
+    post:
+      description: Creates a new Redirect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Redirect'
+            examples:
+              Generated ending:
+                value:
+                  url: "https://google.com"
+                  ending: null
+              Specified ending:
+                value:
+                  url: "https://google.com"
+                  ending: google
+      responses:
+        201:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Redirect'
+              examples: 
+                Generated ending:
+                    value:
+                      url: "https://google.com"
+                      ending: 2vrJ0x
+                Specified ending:
+                    value:
+                      url: "https://google.com"
+                      ending: "google"
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limit period will reset
+        403:
+          description: 'Redirect already taken'
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limit period will reset
+        400:
+          description: Invalid Redirect URL
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limit period will reset
+        429:
+          description: 'Too many requests'
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limiting period will reset
+        500:
+          description: 'Internal Server Error'
+    get:
+      description: Get existing Redirect
+      parameters:
+        - in: query
+          name: ending
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Redirect'
+              example: 
+                url: "https://google.com"
+                ending: google
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limit period will reset
+        404:
+          description: 'Redirect not found'
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limit period will reset
+        429:
+          description: 'Too many requests'
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                  type: integer
+              description: Request limit per hour
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Number of requests left
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: Unix timestamp of when the current rate limiting period will reset
+          
+        500:
+          description: 'Internal Server Error'
+        
+        
+components:
+  schemas:
+    Redirect:
+      type: object
+      properties:
+        url:
+          type: string
+        ending:
+          type: string
+          nullable: true
+          
+      required:
+        - url
+        - ending
