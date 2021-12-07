@@ -8,7 +8,7 @@ Just run `echo google.com | nc shortie.sh` in a terminal.
 
 (You might need to install netcat)
 
-If netcat complains about a port, use port 31337 or whatever port you specified in the env file.
+If netcat complains about a port, use port 31337 or whatever port you specified in docker.
 
 ## APIs
 
@@ -30,6 +30,13 @@ shortie-server exposes two APIs:
 
 ## Deployment
 
-A Dockerfile and Github Package are provided for your convience.
+### Prerequisites:
 
-**Please run behind a proxy because there is no HTTPS baked-in**
+  - Redis Server
+  - Docker Runtime
+
+### Running:
+
+Use `docker run` to run the container and setting all env variables found in `.env.example`.
+
+Ports 3000 and 31337 need to be exposed.
