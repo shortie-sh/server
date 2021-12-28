@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import cors from '@koa/cors'
 import * as Sentry from "@sentry/node";
 import { extractTraceparentData, Span, stripUrlQueryAndFragment} from "@sentry/tracing"
 import domain from 'domain';
@@ -136,7 +137,7 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   .use(router.middleware())
-
+  .use(cors())
 
 
 // Routes 
