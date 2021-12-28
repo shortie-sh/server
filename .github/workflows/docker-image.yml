@@ -16,6 +16,6 @@ jobs:
       with:
         # Your secrets.GITHUB_TOKEN
         github_token: ${{ secrets.GHCR_TOKEN }}
-        image_name: reesericci/shortie-server
+        image_name: shortie-sh/server
 
       
