@@ -128,6 +128,7 @@ app.on("error", (err, ctx) => {
 
 // Enabling middleware
 app
+  .use(cors())
   .use(requestHandler)
   .use(tracingMiddleWare)
   .use(koaBody({
@@ -137,7 +138,6 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   .use(router.middleware())
-  .use(cors())
 
 
 // Routes 
