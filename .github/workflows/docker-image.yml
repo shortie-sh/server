@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: push-to-ghcr
+      uses: macbre/push-to-ghcr@v8
+      with:
+        # Your secrets.GITHUB_TOKEN
+        github_token: ${{ secrets.GHCR_TOKEN }}
+        image_name: reesericci/shortie-server
+
+      
